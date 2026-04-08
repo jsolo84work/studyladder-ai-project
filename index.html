@@ -314,7 +314,22 @@
     }
 
     .copy-btn:hover { color: var(--text); border-color: var(--border2); }
-    .copy-btn.visible { display: block; }
+    .copy-btn.visible { display: inline-flex; align-items: center; gap: 5px; }
+
+    .btn-limpar {
+      font-size: 0.78rem;
+      color: var(--text2);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: all 0.18s;
+      display: none;
+    }
+
+    .btn-limpar:hover { color: var(--danger); border-color: var(--danger); }
+    .btn-limpar.visible { display: block; }
 
     .result-body {
       flex: 1;
@@ -591,7 +606,10 @@
           <div class="status-dot" id="status-dot"></div>
           Plano Gerado pela IA
         </div>
-        <button class="copy-btn" id="copy-btn" onclick="copiarResultado()">Copiar</button>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button class="copy-btn" id="copy-btn" onclick="copiarResultado()">Copiar</button>
+          <button class="btn-limpar" id="btn-limpar" onclick="limparTudo()">Limpar</button>
+        </div>
       </div>
 
       <div class="result-body" id="result-body">
@@ -688,8 +706,8 @@
       const text = document.getElementById('result-content').innerText;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('copy-btn');
-        btn.textContent = 'Copiado!';
-        setTimeout(() => btn.textContent = 'Copiar', 2000);
+        btn.textContent = 'Conteúdo copiado!';
+        setTimeout(() => btn.textContent = 'Copiar', 2500);
       });
     }
 
@@ -709,6 +727,7 @@
 
       document.getElementById('status-dot').classList.toggle('active', estados.loading);
       document.getElementById('copy-btn').classList.toggle('visible', estados.result);
+      document.getElementById('btn-limpar').classList.toggle('visible', estados.result);
     }
 
     // ── FORMATAR MARKDOWN BÁSICO ──
@@ -821,6 +840,28 @@ Seja específico, prático e motivador.
       } finally {
         btn.disabled = false;
       }
+    }
+
+    // ── LIMPAR TUDO ──
+    function limparTudo() {
+      const confirmar = confirm('Tem certeza que deseja limpar o conteúdo e iniciar uma nova pesquisa?');
+      if (!confirmar) return;
+
+      ['concurso', 'dataProva', 'horasDia', 'obs'].forEach(id => {
+        document.getElementById(id).value = '';
+        document.getElementById(id).classList.remove('error');
+      });
+      document.getElementById('nivel').value = '';
+      document.getElementById('nivel').classList.remove('error');
+
+      document.querySelectorAll('.chip.selected').forEach(c => c.classList.remove('selected'));
+
+      ['err-concurso','err-dataProva','err-horasDia','err-nivel','err-chips'].forEach(id => {
+        document.getElementById(id).classList.remove('visible');
+      });
+
+      document.getElementById('result-content').innerHTML = '';
+      setEstado('empty');
     }
 
     // ── LIMPAR ERRO ao digitar ──
