@@ -1,0 +1,2 @@
+// ── CONFIGURAÇÃO GLOBAL ──
+const API_BASE = 'http://localhost:3333';

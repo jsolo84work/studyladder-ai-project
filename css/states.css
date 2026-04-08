@@ -1,0 +1,138 @@
+/* ── STATUS DOT ── */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text3);
+  transition: background 0.3s;
+}
+
+.status-dot.active {
+  background: var(--success);
+  box-shadow: 0 0 0 3px rgba(62, 207, 142, 0.2);
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+/* ── ESTADO VAZIO ── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 380px;
+  gap: 1rem;
+  text-align: center;
+  color: var(--text3);
+}
+
+.empty-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--surface2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-icon svg { width: 28px; height: 28px; stroke: var(--text3); }
+.empty-state p { font-size: 0.85rem; max-width: 240px; line-height: 1.6; }
+
+/* ── LOADING ── */
+.loading-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 380px;
+  gap: 1.25rem;
+}
+
+.loading-state.visible { display: flex; }
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loading-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text2);
+}
+
+.loading-dots::after {
+  content: '';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+/* ── RESULTADO ── */
+.result-content {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.result-content.visible { display: block; }
+
+/* ── CURSOR PISCANTE ── */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--accent);
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 0.9s step-end infinite;
+}
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #2d1a1a;
+  border: 1px solid rgba(245, 101, 101, 0.4);
+  color: var(--danger);
+  font-size: 0.85rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 999;
+}
+
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ── KEYFRAMES ── */
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(62, 207, 142, 0.2); }
+  50% { box-shadow: 0 0 0 6px rgba(62, 207, 142, 0.05); }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes dots {
+  0%  { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}

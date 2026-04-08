@@ -1,0 +1,71 @@
+/* ── PANEL DIREITO — RESULTADO ── */
+.result-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 520px;
+}
+
+.result-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.result-header-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.result-body {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+/* Formatação do markdown gerado */
+.result-content h1, .result-content h2, .result-content h3 {
+  font-family: 'Syne', sans-serif;
+  letter-spacing: -0.02em;
+  margin: 1.25rem 0 0.5rem;
+  color: var(--text);
+}
+
+.result-content h1 { font-size: 1.25rem; }
+.result-content h2 { font-size: 1.05rem; color: var(--accent2); border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+.result-content h3 { font-size: 0.9rem; color: var(--text2); }
+.result-content p { margin: 0.6rem 0; }
+
+.result-content ul, .result-content ol {
+  margin: 0.5rem 0 0.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.result-content li { line-height: 1.65; }
+.result-content strong { color: var(--accent2); font-weight: 500; }
+
+.result-content code {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.82rem;
+  background: var(--surface3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--warning);
+}
+
+.result-content hr { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
